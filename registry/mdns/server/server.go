@@ -15,8 +15,8 @@ import (
 	"golang.org/x/net/ipv4"
 	"golang.org/x/net/ipv6"
 
-	"github.com/go-orb/plugins/registry/mdns/util"
-	"github.com/go-orb/plugins/registry/mdns/zone"
+	"github.com/go-orb/plugins-experimental/registry/mdns/util"
+	"github.com/go-orb/plugins-experimental/registry/mdns/zone"
 )
 
 // mDNS Groups.

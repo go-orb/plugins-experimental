@@ -1,4 +1,4 @@
-module github.com/go-orb/plugins/registry/nats
+module github.com/go-orb/plugins-experimental/registry/nats
 
 go 1.23
 

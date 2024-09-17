@@ -8,7 +8,7 @@ import (
 	"os"
 	"sync/atomic"
 
-	"github.com/go-orb/plugins/registry/mdns/util"
+	"github.com/go-orb/plugins-experimental/registry/mdns/util"
 	"github.com/miekg/dns"
 )
 

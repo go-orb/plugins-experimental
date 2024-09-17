@@ -17,10 +17,10 @@ import (
 
 	"log/slog"
 
-	"github.com/go-orb/plugins/registry/mdns/client"
-	"github.com/go-orb/plugins/registry/mdns/dns"
-	"github.com/go-orb/plugins/registry/mdns/server"
-	"github.com/go-orb/plugins/registry/mdns/zone"
+	"github.com/go-orb/plugins-experimental/registry/mdns/client"
+	"github.com/go-orb/plugins-experimental/registry/mdns/dns"
+	"github.com/go-orb/plugins-experimental/registry/mdns/server"
+	"github.com/go-orb/plugins-experimental/registry/mdns/zone"
 
 	"github.com/go-orb/go-orb/log"
 	"github.com/go-orb/go-orb/registry"

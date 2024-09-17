@@ -11,8 +11,8 @@ import (
 	"time"
 
 	"github.com/go-orb/go-orb/log"
-	"github.com/go-orb/plugins/registry/mdns/server"
-	"github.com/go-orb/plugins/registry/mdns/util"
+	"github.com/go-orb/plugins-experimental/registry/mdns/server"
+	"github.com/go-orb/plugins-experimental/registry/mdns/util"
 	"github.com/miekg/dns"
 	"golang.org/x/net/ipv4"
 	"golang.org/x/net/ipv6"
