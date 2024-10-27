@@ -1,6 +1,8 @@
 package nats
 
 import (
+	"errors"
+	"fmt"
 	"net"
 	"os"
 	"os/exec"
@@ -13,7 +15,6 @@ import (
 
 	_ "github.com/go-orb/plugins/log/slog"
 	"github.com/go-orb/plugins/registry/tests"
-	"github.com/pkg/errors"
 	"github.com/stretchr/testify/require"
 	"github.com/stretchr/testify/suite"
 
@@ -103,7 +104,7 @@ func natsServer() (string, func() error, error) {
 	args := []string{"--addr", host, "--port", strconv.Itoa(port), "-js"}
 	cmd := exec.Command(natsCmd, args...)
 	if err := cmd.Start(); err != nil {
-		return addr, nil, errors.Wrap(err, "failed starting command")
+		return addr, nil, fmt.Errorf("failed starting command: %w", err)
 	}
 
 	cleanup := func() error {
@@ -113,11 +114,11 @@ func natsServer() (string, func() error, error) {
 
 		if runtime.GOOS == "windows" {
 			if err := cmd.Process.Kill(); err != nil {
-				return errors.Wrap(err, "failed to kill nats server")
+				return fmt.Errorf("failed to kill the nats server: %w", err)
 			}
 		} else { // interrupt is not supported in windows
 			if err := cmd.Process.Signal(os.Interrupt); err != nil {
-				return errors.Wrap(err, "failed to kill nats server")
+				return fmt.Errorf("failed to kill the nats server: %w", err)
 			}
 		}
 
@@ -125,45 +126,6 @@ func natsServer() (string, func() error, error) {
 	}
 
 	return addr, cleanup, nil
-}
-
-func NewLogWrapper(logger log.Logger) *LogWrapper {
-	return &LogWrapper{
-		logger: logger,
-	}
-}
-
-type LogWrapper struct {
-	logger log.Logger
-}
-
-// Noticef logs a notice statement.
-func (l *LogWrapper) Noticef(_ string, _ ...interface{}) {
-}
-
-// Warnf logs a warning statement.
-func (l *LogWrapper) Warnf(format string, v ...interface{}) {
-	l.logger.Warn(format, v...)
-}
-
-// Fatalf logs a fatal statement.
-func (l *LogWrapper) Fatalf(format string, v ...interface{}) {
-	l.logger.Error(format, v...)
-}
-
-// Errorf logs an error statement.
-func (l *LogWrapper) Errorf(format string, v ...interface{}) {
-	l.logger.Error(format, v...)
-}
-
-// Debugf logs a debug statement.
-func (l *LogWrapper) Debugf(format string, v ...interface{}) {
-	l.logger.Debug(format, v...)
-}
-
-// Tracef logs a trace statement.
-func (l *LogWrapper) Tracef(format string, v ...interface{}) {
-	l.logger.Trace(format, v...)
 }
 
 func TestSuite(t *testing.T) {
@@ -177,6 +139,8 @@ func TestSuite(t *testing.T) {
 }
 
 func BenchmarkGetService(b *testing.B) {
+	b.StopTimer()
+
 	s, cleanup, err := createServer()
 	require.NoError(b, err, "while creating a server")
 
