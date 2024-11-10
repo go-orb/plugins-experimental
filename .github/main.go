@@ -256,7 +256,13 @@ func (m *GoOrb) Update(ctx context.Context, root *dagger.Directory) (*AllResult,
 			}
 
 			c := m.goContainer(root, dir).
-				WithExec([]string{"go", "get", "-u", "-t", "./..."})
+				WithEnvVariable("GOPROXY", "direct").
+				WithEnvVariable("GOSUMDB", "off").
+				WithExec([]string{"go", "get", "-u", "-t", "./..."}).
+				WithExec([]string{"go", "get", "-u", "github.com/go-orb/go-orb@main"}).
+				WithExec([]string{"bash", "-c", "for m in $(grep github.com/go-orb/plugins go.mod | grep -E -v \"^module\" | awk '{ print $1 }'); do go get -u \"${m}@main\"; done"}).
+				WithExec([]string{"go", "mod", "tidy", "-go=1.23"})
+
 			stdout, err := c.Stdout(ctx)
 			if err != nil {
 				res <- &WorkerResult{Module: dir, Source: c.Directory("/work/src"), Err: err}
