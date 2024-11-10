@@ -31,7 +31,7 @@ func init() {
 		cli.Usage("Registry domain."),
 	))
 
-	registry.Plugins.Register(Name, ProvideRegistryMDNS)
+	registry.Plugins.Add(Name, ProvideRegistryMDNS)
 }
 
 // Config provides configuration for the mDNS registry.

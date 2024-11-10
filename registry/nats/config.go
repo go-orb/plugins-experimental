@@ -31,7 +31,7 @@ func init() {
 		cli.Usage("Registry addresses."),
 	))
 
-	registry.Plugins.Register(Name, ProvideRegistryNATS)
+	registry.Plugins.Add(Name, ProvideRegistryNATS)
 }
 
 // Config provides configuration for the NATS registry.
