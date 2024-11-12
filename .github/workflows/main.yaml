@@ -14,11 +14,11 @@ jobs:
         with:
           fetch-depth: 0
       - name: Lint files
-        uses: dagger/dagger-for-github@v6
+        uses: go-orb/dagger-for-github@main
         with:
           version: "latest"
           verb: call
-          args: lint --root=.
+          args: lint --root=. logs
           cloud-token: ${{ secrets.DAGGER_CLOUD_TOKEN }}
   test:
     name: Unit Tests
@@ -29,9 +29,9 @@ jobs:
         with:
           fetch-depth: 0
       - name: Lint files
-        uses: dagger/dagger-for-github@v6
+        uses: go-orb/dagger-for-github@main
         with:
           version: "latest"
           verb: call
-          args: test --root=.
+          args: test --root=. logs
           cloud-token: ${{ secrets.DAGGER_CLOUD_TOKEN }}
