@@ -5,9 +5,10 @@ go 1.23
 toolchain go1.23.0
 
 require (
-	github.com/go-orb/go-orb v0.0.0-20241110084057-e256fbfa128d
-	github.com/go-orb/plugins/log/slog v0.0.0-20241110092208-bd726ef6240d
-	github.com/go-orb/plugins/registry/tests v0.0.0-20241110092208-bd726ef6240d
+	github.com/go-orb/go-orb v0.0.0-20241110142713-1fb0b3d85692
+	github.com/go-orb/plugins/codecs/json v0.0.0-20241110155013-2a4529db0000
+	github.com/go-orb/plugins/log/slog v0.0.0-20241110155013-2a4529db0000
+	github.com/go-orb/plugins/registry/tests v0.0.0-20241110155013-2a4529db0000
 	github.com/google/uuid v1.6.0
 	github.com/miekg/dns v1.1.62
 	github.com/stretchr/testify v1.9.0
