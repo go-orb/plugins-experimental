@@ -6,7 +6,7 @@ toolchain go1.23.6
 
 require (
 	github.com/cloudwego/hertz v0.9.5
-	github.com/go-orb/go-orb v0.0.0-20250220181250-2526983d68a1
+	github.com/go-orb/go-orb v0.0.0-20250220192804-1f05260015f2
 	github.com/google/uuid v1.6.0
 	github.com/hertz-contrib/http2 v0.1.8
 )
