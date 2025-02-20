@@ -1,4 +1,4 @@
-name: Unit Tests
+name: Main
 on:
   push:
     branches:
@@ -7,8 +7,7 @@ permissions: read-all
 jobs:
   lint:
     name: Lint
-    runs-on:
-      - ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
         with:
@@ -16,22 +15,21 @@ jobs:
       - name: Lint files
         uses: dagger/dagger-for-github@v7
         with:
-          version: "latest"
+          version: v0.16.1
           verb: call
           args: lint --root=. logs
           cloud-token: ${{ secrets.DAGGER_CLOUD_TOKEN }}
   test:
     name: Unit Tests
-    runs-on:
-      - ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - name: Lint files
+      - name: Run unit tests
         uses: dagger/dagger-for-github@v7
         with:
-          version: "latest"
+          version: v0.16.1
           verb: call
           args: test --root=. logs
           cloud-token: ${{ secrets.DAGGER_CLOUD_TOKEN }}

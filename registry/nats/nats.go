@@ -281,7 +281,7 @@ func (n *RegistryNATS) deregister(s *registry.Service) error {
 	return nil
 }
 
-func (n *RegistryNATS) query(s string, quorum int) ([]*registry.Service, error) { //nolint:gocyclo,funlen
+func (n *RegistryNATS) query(s string, quorum int) ([]*registry.Service, error) { //nolint:gocyclo
 	conn, err := n.getConn()
 	if err != nil {
 		return nil, err

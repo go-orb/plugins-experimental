@@ -72,14 +72,14 @@ func (m *GoOrb) runAll(ctx context.Context, root *dagger.Directory, worker func(
 	for r := range res {
 		if r.Err != nil {
 			err = multierror.Append(err, r.Err)
+
+			if len(r.Logs) > 0 {
+				result.Logs = append(result.Logs, "## "+r.Module+"\n"+r.Logs+"\n\n")
+			}
 		}
 
 		if r.Source != nil {
 			result.Source = result.Source.WithDirectory(r.Module, r.Source)
-		}
-
-		if len(r.Logs) > 0 {
-			result.Logs = append(result.Logs, "## "+r.Module+"\n"+r.Logs+"\n\n")
 		}
 	}
 
@@ -126,7 +126,7 @@ func (m *GoOrb) Lint(
 			default:
 			}
 
-			out, err := dag.Container().From("golangci/golangci-lint").
+			out, err := dag.Container().From("golangci/golangci-lint:v1.64.5").
 				WithMountedCache("/go/pkg/mod",
 					dag.CacheVolume("go-mod"),
 					dagger.ContainerWithMountedCacheOpts{
@@ -145,7 +145,7 @@ func (m *GoOrb) Lint(
 				WithDirectory("/work/src", root.Directory(dir)).
 				WithWorkdir("/work/src").
 				WithMountedFile("/work/config", golangciConfig).
-				WithExec([]string{"golangci-lint", "run", "--config", "/work/config"}).
+				WithExec([]string{"golangci-lint", "run", "--config", "/work/config", "--timeout=10m"}).
 				Stdout(ctx)
 
 			res <- &WorkerResult{Module: dir, Logs: out, Err: err}

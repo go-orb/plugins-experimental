@@ -268,7 +268,7 @@ func (s *Server) parsePacket(packet []byte, from net.Addr) error {
 }
 
 // handleQuery is used to handle an incoming query.
-func (s *Server) handleQuery(query *dns.Msg, from net.Addr) error { //nolint:funlen
+func (s *Server) handleQuery(query *dns.Msg, from net.Addr) error {
 	if query.Opcode != dns.OpcodeQuery {
 		// "In both multicast query and multicast response messages, the OPCODE MUST
 		// be zero on transmission (only standard queries are currently supported

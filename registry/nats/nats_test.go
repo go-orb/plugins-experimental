@@ -63,10 +63,10 @@ func createServer() (*tests.TestSuite, func() error, error) {
 		}
 
 		regTwo = New("", "", cfg, logger)
-		regTwo.Start() //nolint: errcheck
+		regTwo.Start() //nolint:errcheck
 
 		regThree = New("", "", cfg, logger)
-		regThree.Start() //nolint: errcheck
+		regThree.Start() //nolint:errcheck
 
 		started = true
 	}

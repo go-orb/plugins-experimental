@@ -186,7 +186,6 @@ func (m *RegistryMDNS) Register(service *registry.Service, _ ...registry.Registe
 	return err
 }
 
-//nolint:funlen
 func (m *RegistryMDNS) registerNodes(service *registry.Service, entries []*mdnsEntry) ([]*mdnsEntry, error) {
 	var gerr error
 
