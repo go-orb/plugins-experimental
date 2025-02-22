@@ -1,8 +1,6 @@
 module github.com/go-orb/plugins-experimental/registry/mdns
 
-go 1.23.0
-
-toolchain go1.23.6
+go 1.23.6
 
 require (
 	github.com/go-orb/go-orb v0.0.0-20250220192804-1f05260015f2

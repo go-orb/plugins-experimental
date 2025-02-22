@@ -24,8 +24,8 @@ github.com/fsnotify/fsnotify v1.8.0 h1:dAwr6QBTBZIkG8roQaJjGof0pp0EeF+tNV7YBP3F/
 github.com/fsnotify/fsnotify v1.8.0/go.mod h1:8jBTzvmWwFyi3Pb8djgCCO5IBqzKJ/Jwo8TRcHyHii0=
 github.com/go-orb/go-orb v0.0.0-20250220192804-1f05260015f2 h1:fgu9ePmnrOp/g5dakOxPof+nGNxziyNV/ZQk912NbQY=
 github.com/go-orb/go-orb v0.0.0-20250220192804-1f05260015f2/go.mod h1:Z64Q1rFtN8XHhnito1vWzJrxfxJs+f9F+J5TzAKGvJ0=
-github.com/go-orb/plugins-experimental/client/orb/transport/basehertz v0.0.0-20250220203505-18978d0a88aa h1:x0kniVGzDvSl+4WnHmB5zcczGoik9YCaHsTWNXjfQZE=
-github.com/go-orb/plugins-experimental/client/orb/transport/basehertz v0.0.0-20250220203505-18978d0a88aa/go.mod h1:eFzcokkNTFj5KGLVDEXMxMn4YC2MGW8v244QKxhr2TQ=
+github.com/go-orb/plugins-experimental/client/orb/transport/basehertz v0.0.0-20250220203922-41462c628e64 h1:s7aLnCl6XRY2JDGPyMOafWDMvJ7/P0+ML63lNJz3ToA=
+github.com/go-orb/plugins-experimental/client/orb/transport/basehertz v0.0.0-20250220203922-41462c628e64/go.mod h1:C+SJaiqU3AcJRqv58wNHlHPH9l1vagCvcAUcNNiwzbg=
 github.com/go-orb/plugins/client/orb v0.0.0-20250220201609-166b27343f72 h1:bRpQ+zrnvJbSwDvtoQjFH/3XSbbJPr1xPpv4UR67bDM=
 github.com/go-orb/plugins/client/orb v0.0.0-20250220201609-166b27343f72/go.mod h1:2PvS4qw2idQa09XWCEpmW6FjHOHrIH0Cd3Yrv5/VymI=
 github.com/google/go-cmp v0.6.0 h1:ofyhxvXcZhMsU5ulbFiLKl/XBFqE1GSq7atu8tAmTRI=

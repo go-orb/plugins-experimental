@@ -1,8 +1,6 @@
 module github.com/go-orb/plugins-experimental/client/orb/transport/basehertz
 
-go 1.23.0
-
-toolchain go1.23.6
+go 1.23.6
 
 require (
 	github.com/cloudwego/hertz v0.9.5
