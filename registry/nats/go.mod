@@ -3,10 +3,10 @@ module github.com/go-orb/plugins-experimental/registry/nats
 go 1.23.6
 
 require (
-	github.com/go-orb/go-orb v0.0.0-20250220192804-1f05260015f2
-	github.com/go-orb/plugins/codecs/json v0.0.0-20250220201609-166b27343f72
-	github.com/go-orb/plugins/log/slog v0.0.0-20250220201609-166b27343f72
-	github.com/go-orb/plugins/registry/tests v0.0.0-20250220201609-166b27343f72
+	github.com/go-orb/go-orb v0.0.0-20250223062516-2e68b601dde6
+	github.com/go-orb/plugins/codecs/json v0.0.0-20250223040058-5bd64d3e489b
+	github.com/go-orb/plugins/log/slog v0.0.0-20250223040058-5bd64d3e489b
+	github.com/go-orb/plugins/registry/tests v0.0.0-20250223040058-5bd64d3e489b
 	github.com/google/uuid v1.6.0
 	github.com/nats-io/nats.go v1.39.1
 	github.com/stretchr/testify v1.10.0
