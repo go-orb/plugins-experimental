@@ -121,6 +121,11 @@ func (s *Server) Stop(ctx context.Context) error {
 	return s.hServer.Shutdown(stopCtx)
 }
 
+// AddHandler adds a handler for later registration.
+func (s *Server) AddHandler(handler orbserver.RegistrationFunc) {
+	s.config.OptHandlers = append(s.config.OptHandlers, handler)
+}
+
 // Register executes a registration function on the entrypoint.
 func (s *Server) Register(register orbserver.RegistrationFunc) {
 	register(s)
