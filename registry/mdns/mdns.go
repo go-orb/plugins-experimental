@@ -353,6 +353,10 @@ func (m *RegistryMDNS) GetService(service string, _ ...registry.GetOption) ([]*r
 		i++
 	}
 
+	if len(services) == 0 {
+		return services, registry.ErrNotFound
+	}
+
 	return services, nil
 }
 

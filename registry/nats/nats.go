@@ -412,6 +412,10 @@ func (n *RegistryNATS) GetService(s string, _ ...registry.GetOption) ([]*registr
 		return nil, err
 	}
 
+	if len(services) == 0 {
+		return services, registry.ErrNotFound
+	}
+
 	return services, nil
 }
 
