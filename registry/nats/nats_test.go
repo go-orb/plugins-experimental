@@ -1,6 +1,7 @@
 package nats
 
 import (
+	"context"
 	"errors"
 	"fmt"
 	"net"
@@ -56,17 +57,17 @@ func createServer() (*tests.TestSuite, func() error, error) {
 		}
 
 		regOne = New("", "", cfg, logger)
-		err = regOne.Start()
+		err = regOne.Start(context.Background())
 		if err != nil {
 			time.Sleep(time.Second)
 			continue
 		}
 
 		regTwo = New("", "", cfg, logger)
-		regTwo.Start() //nolint:errcheck
+		regTwo.Start(context.Background()) //nolint:errcheck
 
 		regThree = New("", "", cfg, logger)
-		regThree.Start() //nolint:errcheck
+		regThree.Start(context.Background()) //nolint:errcheck
 
 		started = true
 	}

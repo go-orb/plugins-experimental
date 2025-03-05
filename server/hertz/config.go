@@ -8,7 +8,6 @@ import (
 	"github.com/go-orb/go-orb/log"
 	"github.com/go-orb/go-orb/server"
 	mtls "github.com/go-orb/go-orb/util/tls"
-	"github.com/google/uuid"
 )
 
 const (
@@ -149,7 +148,7 @@ type Config struct {
 func NewConfig(options ...server.Option) *Config {
 	cfg := &Config{
 		EntrypointConfig: server.EntrypointConfig{
-			Name:    Plugin + "-" + uuid.NewString(),
+			Name:    Plugin,
 			Plugin:  Plugin,
 			Enabled: true,
 		},

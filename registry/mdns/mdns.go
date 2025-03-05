@@ -115,7 +115,7 @@ func New(serviceName string, serviceVersion string, cfg Config, log log.Logger) 
 }
 
 // Start the registry.
-func (m *RegistryMDNS) Start() error {
+func (m *RegistryMDNS) Start(_ context.Context) error {
 	// TODO: I think this should start something?
 	return nil
 }

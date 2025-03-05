@@ -164,7 +164,7 @@ func TestWatcher(t *testing.T) {
 	require.NoError(t, err, "failed to create registry config")
 
 	r := New("", "", cfg, l)
-	require.NoError(t, r.Start(), "failed to start service")
+	require.NoError(t, r.Start(context.Background()), "failed to start service")
 
 	w, err := r.Watch()
 	require.NoError(t, err, "failed to start registry watcher")

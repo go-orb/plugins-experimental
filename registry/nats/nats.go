@@ -81,7 +81,7 @@ func New(serviceName string, serviceVersion string, cfg Config, log log.Logger) 
 }
 
 // Start the registry.
-func (n *RegistryNATS) Start() error {
+func (n *RegistryNATS) Start(_ context.Context) error {
 	if _, err := n.getConn(); err != nil {
 		return fmt.Errorf("connect: %w", err)
 	}
