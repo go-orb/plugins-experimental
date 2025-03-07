@@ -5,7 +5,6 @@ import (
 	"fmt"
 
 	"github.com/go-orb/go-orb/config"
-	"github.com/go-orb/go-orb/config/source/cli"
 	"github.com/go-orb/go-orb/registry"
 	"github.com/go-orb/go-orb/types"
 )
@@ -23,14 +22,6 @@ var (
 )
 
 func init() {
-	//nolint:errcheck
-	_ = cli.Flags.Add(cli.NewFlag(
-		"registry_addresses",
-		DefaultAddresses,
-		cli.ConfigPathSlice([]string{"registry", "addresses"}),
-		cli.Usage("Registry addresses."),
-	))
-
 	registry.Plugins.Add(Name, ProvideRegistryNATS)
 }
 

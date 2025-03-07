@@ -143,7 +143,7 @@ func (t *Transport) call2(
 	}
 
 	if hRes.StatusCode() != consts.StatusOK {
-		return res, orberrors.NewHTTP(hRes.StatusCode())
+		return res, orberrors.HTTP(hRes.StatusCode())
 	}
 
 	if opts.ResponseMetadata != nil {
