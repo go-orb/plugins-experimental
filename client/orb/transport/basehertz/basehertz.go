@@ -60,17 +60,17 @@ func (t *Transport) NeedsCodec() bool {
 	return true
 }
 
-// Call does the actual rpc call to the server.
-func (t *Transport) Call(ctx context.Context, req *client.Request[any, any], opts *client.CallOptions,
+// Request does the actual rpc request to the server.
+func (t *Transport) Request(ctx context.Context, req *client.Req[any, any], opts *client.CallOptions,
 ) (*client.RawResponse, error) {
-	codec, err := codecs.GetEncoder(opts.ContentType, req.Request())
+	codec, err := codecs.GetEncoder(opts.ContentType, req.Req())
 	if err != nil {
 		return nil, orberrors.ErrBadRequest.Wrap(err)
 	}
 
 	// Encode the request into a *bytes.Buffer{}.
 	buff := bytes.NewBuffer(nil)
-	if err := codec.NewEncoder(buff).Encode(req.Request()); err != nil {
+	if err := codec.NewEncoder(buff).Encode(req.Req()); err != nil {
 		return nil, orberrors.ErrBadRequest.Wrap(err)
 	}
 
@@ -85,7 +85,7 @@ func (t *Transport) Call(ctx context.Context, req *client.Request[any, any], opt
 	hReq.SetBodyStream(buff, buff.Len())
 	hReq.Header.SetContentTypeBytes([]byte(opts.ContentType))
 	hReq.Header.Set("Accept", opts.ContentType)
-	hReq.SetRequestURI(fmt.Sprintf("%s://%s/%s", t.scheme, node.Address, req.Endpoint()))
+	hReq.SetRequestURI(fmt.Sprintf("%s://%s%s", t.scheme, node.Address, req.Endpoint()))
 
 	// Set metadata key=value to request headers.
 	md, ok := metadata.Outgoing(ctx)
@@ -162,8 +162,8 @@ func (t *Transport) call2(
 	return res, nil
 }
 
-// CallNoCodec is a noop for http based transports.
-func (t *Transport) CallNoCodec(_ context.Context, _ *client.Request[any, any], _ any, _ *client.CallOptions) error {
+// RequestNoCodec is a noop for http based transports.
+func (t *Transport) RequestNoCodec(_ context.Context, _ *client.Req[any, any], _ any, _ *client.CallOptions) error {
 	return orberrors.ErrInternalServerError
 }
 
