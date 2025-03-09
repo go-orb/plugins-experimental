@@ -39,6 +39,7 @@ func ProvideRegistryNATS(
 	name types.ServiceName,
 	version types.ServiceVersion,
 	datas types.ConfigData,
+	_ *types.Components,
 	logger log.Logger,
 	opts ...registry.Option,
 ) (registry.Type, error) {
@@ -124,7 +125,7 @@ func (n *RegistryNATS) NodeID() string {
 		return n.id
 	}
 
-	n.id = n.serviceName + "-" + uuid.New().String()
+	n.id = uuid.New().String()
 
 	return n.id
 }

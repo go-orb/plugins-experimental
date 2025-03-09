@@ -79,6 +79,7 @@ func ProvideRegistryMDNS(
 	name types.ServiceName,
 	version types.ServiceVersion,
 	datas types.ConfigData,
+	_ *types.Components,
 	logger log.Logger,
 	opts ...registry.Option,
 ) (registry.Type, error) {
