@@ -4,7 +4,7 @@ go 1.23.6
 
 require (
 	github.com/cloudwego/hertz v0.9.5
-	github.com/go-orb/go-orb v0.1.0
+	github.com/go-orb/go-orb v0.2.2-0.20250310150137-28d27c7c856e
 	github.com/google/uuid v1.6.0
 	github.com/hertz-contrib/http2 v0.1.8
 )
@@ -27,8 +27,8 @@ require (
 	github.com/twitchyliquid64/golang-asm v0.15.1 // indirect
 	golang.org/x/arch v0.14.0 // indirect
 	golang.org/x/exp v0.0.0-20250218142911-aa4b98e5adaa // indirect
-	golang.org/x/net v0.35.0 // indirect
-	golang.org/x/sys v0.30.0 // indirect
-	golang.org/x/text v0.22.0 // indirect
+	golang.org/x/net v0.37.0 // indirect
+	golang.org/x/sys v0.31.0 // indirect
+	golang.org/x/text v0.23.0 // indirect
 	google.golang.org/protobuf v1.36.5 // indirect
 )
