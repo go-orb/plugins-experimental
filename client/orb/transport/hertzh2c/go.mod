@@ -4,9 +4,9 @@ go 1.23.6
 
 require (
 	github.com/cloudwego/hertz v0.9.6
-	github.com/go-orb/go-orb v0.2.2-0.20250311013353-9996c5ae2659
-	github.com/go-orb/plugins-experimental/client/orb/transport/basehertz v0.0.0-20250310151257-e3753cc29dd6
-	github.com/go-orb/plugins/client/orb v0.1.4-0.20250311025432-c3f6c11bc7a0
+	github.com/go-orb/go-orb v0.2.2-0.20250311132430-0e33342756e5
+	github.com/go-orb/plugins-experimental/client/orb/transport/basehertz v0.0.0-20250311030251-33347369bbe1
+	github.com/go-orb/plugins/client/orb v0.1.4-0.20250311132830-02df1246ed3c
 	github.com/hertz-contrib/http2 v0.1.8
 )
 
@@ -17,11 +17,10 @@ require (
 	github.com/cloudwego/base64x v0.1.5 // indirect
 	github.com/cloudwego/netpoll v0.6.5 // indirect
 	github.com/cornelk/hashmap v1.0.8 // indirect
-	github.com/davecgh/go-spew v1.1.2-0.20180830191138-d8f796af33cc // indirect
 	github.com/fsnotify/fsnotify v1.8.0 // indirect
 	github.com/klauspost/cpuid/v2 v2.2.10 // indirect
 	github.com/nyaruka/phonenumbers v1.5.0 // indirect
-	github.com/stretchr/testify v1.10.0 // indirect
+	github.com/stretchr/objx v0.5.2 // indirect
 	github.com/tidwall/gjson v1.18.0 // indirect
 	github.com/tidwall/match v1.1.1 // indirect
 	github.com/tidwall/pretty v1.2.1 // indirect

@@ -23,10 +23,10 @@ github.com/davecgh/go-spew v1.1.2-0.20180830191138-d8f796af33cc h1:U9qPSI2PIWSS1
 github.com/davecgh/go-spew v1.1.2-0.20180830191138-d8f796af33cc/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/fsnotify/fsnotify v1.8.0 h1:dAwr6QBTBZIkG8roQaJjGof0pp0EeF+tNV7YBP3F/8M=
 github.com/fsnotify/fsnotify v1.8.0/go.mod h1:8jBTzvmWwFyi3Pb8djgCCO5IBqzKJ/Jwo8TRcHyHii0=
-github.com/go-orb/go-orb v0.2.2-0.20250311013353-9996c5ae2659 h1:lgx4A5R5TKPrAKbg1v+XID/lL7ZgSXa3B20awh4yfI4=
-github.com/go-orb/go-orb v0.2.2-0.20250311013353-9996c5ae2659/go.mod h1:UgBB26ldvzHNjg6721K2o5DEM6qX44ZHqCW0SanoAFA=
-github.com/go-orb/plugins/client/orb v0.1.4-0.20250311025432-c3f6c11bc7a0 h1:Vm8F66C/JB2CMYIUI9u+yMWL+uFbXYM5KMb5Pvfo9Rk=
-github.com/go-orb/plugins/client/orb v0.1.4-0.20250311025432-c3f6c11bc7a0/go.mod h1:/Wx09PSBKu237UD2F6xLU/2mWfLHHVzOuT7BHWresyA=
+github.com/go-orb/go-orb v0.2.2-0.20250311132430-0e33342756e5 h1:mj8nSHiIy9QeEHsh7MJF/GgVrfZTu9bsO65QklAoPf4=
+github.com/go-orb/go-orb v0.2.2-0.20250311132430-0e33342756e5/go.mod h1:UgBB26ldvzHNjg6721K2o5DEM6qX44ZHqCW0SanoAFA=
+github.com/go-orb/plugins/client/orb v0.1.4-0.20250311132830-02df1246ed3c h1:B5LJD+SsycshuEqwhg0hbNutGvSF6yGPf/4XqCnBQNE=
+github.com/go-orb/plugins/client/orb v0.1.4-0.20250311132830-02df1246ed3c/go.mod h1:pU/m5xCBVq6tv/YtcfdhW7xyNiR4MvOzHGN9k00biUY=
 github.com/google/go-cmp v0.7.0 h1:wk8382ETsv4JYUZwIsn6YpYiWiBsYLSJiTsyBybVuN8=
 github.com/google/go-cmp v0.7.0/go.mod h1:pXiqmnSA92OHEEa9HXL2W4E7lf9JzCmGVUdgjX3N/iU=
 github.com/gopherjs/gopherjs v0.0.0-20181017120253-0766667cb4d1 h1:EGx4pi6eqNxGaHF6qqu48+N2wcFQ5qg5FXgOdqsJ5d8=
