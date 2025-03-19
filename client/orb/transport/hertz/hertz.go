@@ -1,5 +1,5 @@
-// Package basehertz contains a base transport which is used by hertz transports.
-package basehertz
+// Package hertz contains the hertz transport for the orb client.
+package hertz
 
 import (
 	"bytes"
@@ -11,6 +11,8 @@ import (
 	hclient "github.com/cloudwego/hertz/pkg/app/client"
 	"github.com/cloudwego/hertz/pkg/protocol"
 	"github.com/cloudwego/hertz/pkg/protocol/consts"
+	"github.com/hertz-contrib/http2/config"
+	"github.com/hertz-contrib/http2/factory"
 
 	"github.com/go-orb/go-orb/client"
 	"github.com/go-orb/go-orb/codecs"
@@ -19,6 +21,11 @@ import (
 	"github.com/go-orb/go-orb/util/orberrors"
 	"github.com/go-orb/plugins/client/orb"
 )
+
+func init() {
+	orb.RegisterTransport("hertzh2c", NewH2CTransport)
+	orb.RegisterTransport("hertzhttp", NewHTTPTransport)
+}
 
 //nolint:gochecknoglobals
 var stdHeaders = []string{"Content-Length", "Content-Type", "Date", "Server"}
@@ -59,24 +66,20 @@ func (t *Transport) Name() string {
 // Request does the actual rpc request to the server.
 func (t *Transport) Request(
 	ctx context.Context,
-	req *client.Req[any, any],
+	infos client.RequestInfos,
+	req any,
 	result any,
 	opts *client.CallOptions,
 ) error {
-	codec, err := codecs.GetEncoder(opts.ContentType, req.Req())
+	codec, err := codecs.GetEncoder(opts.ContentType, req)
 	if err != nil {
 		return orberrors.ErrBadRequest.Wrap(err)
 	}
 
 	// Encode the request into a *bytes.Buffer{}.
 	buff := bytes.NewBuffer(nil)
-	if err := codec.NewEncoder(buff).Encode(req.Req()); err != nil {
+	if err := codec.NewEncoder(buff).Encode(req); err != nil {
 		return orberrors.ErrBadRequest.Wrap(err)
-	}
-
-	node, err := req.Node(ctx, opts)
-	if err != nil {
-		return orberrors.From(err)
 	}
 
 	// Create a hertz request.
@@ -85,7 +88,7 @@ func (t *Transport) Request(
 	hReq.SetBodyStream(buff, buff.Len())
 	hReq.Header.SetContentTypeBytes([]byte(opts.ContentType))
 	hReq.Header.Set("Accept", opts.ContentType)
-	hReq.SetRequestURI(fmt.Sprintf("%s://%s%s", t.scheme, node.Address, req.Endpoint()))
+	hReq.SetRequestURI(fmt.Sprintf("%s://%s%s", t.scheme, infos.Address, infos.Endpoint))
 
 	// Set metadata key=value to request headers.
 	md, ok := metadata.Outgoing(ctx)
@@ -142,6 +145,12 @@ func (t *Transport) Request(
 	return nil
 }
 
+// Stream creates a bidirectional stream to the service endpoint.
+// Hertz transport does not support streaming operations by default.
+func (t *Transport) Stream(_ context.Context, _ client.RequestInfos, _ *client.CallOptions) (client.StreamIface[any, any], error) {
+	return nil, orberrors.HTTP(501).Wrap(client.ErrStreamNotSupported)
+}
+
 // NewTransport creates a Transport with a custom http.Client.
 func NewTransport(name string, logger log.Logger, scheme string, clientCreator TransportClientCreator,
 ) (orb.TransportType, error) {
@@ -151,4 +160,41 @@ func NewTransport(name string, logger log.Logger, scheme string, clientCreator T
 		scheme:        scheme,
 		clientCreator: clientCreator,
 	}}, nil
+}
+
+// NewH2CTransport creates a new hertz http transport for the orb client.
+func NewH2CTransport(logger log.Logger, cfg *orb.Config) (orb.TransportType, error) {
+	return NewTransport(
+		"hertzh2c",
+		logger,
+		"http",
+		func() (*hclient.Client, error) {
+			c, err := hclient.NewClient(
+				hclient.WithNoDefaultUserAgentHeader(true),
+				hclient.WithMaxConnsPerHost(cfg.PoolSize),
+			)
+			if err != nil {
+				return nil, err
+			}
+
+			c.SetClientFactory(factory.NewClientFactory(config.WithAllowHTTP(true)))
+
+			return c, nil
+		},
+	)
+}
+
+// NewHTTPTransport creates a new hertz http transport for the orb client.
+func NewHTTPTransport(logger log.Logger, cfg *orb.Config) (orb.TransportType, error) {
+	return NewTransport(
+		"hertzhttp",
+		logger,
+		"http",
+		func() (*hclient.Client, error) {
+			return hclient.NewClient(
+				hclient.WithNoDefaultUserAgentHeader(true),
+				hclient.WithMaxConnsPerHost(cfg.PoolSize),
+			)
+		},
+	)
 }

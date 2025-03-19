@@ -13,7 +13,6 @@ import (
 	"github.com/cloudwego/hertz/pkg/app/server"
 	hconfig "github.com/cloudwego/hertz/pkg/common/config"
 	"github.com/cloudwego/hertz/pkg/common/hlog"
-	"github.com/google/uuid"
 
 	"github.com/go-orb/go-orb/config"
 	"github.com/go-orb/go-orb/log"
@@ -149,13 +148,7 @@ func (s *Server) Transport() string {
 
 // EntrypointID returns the id (uuid) of this entrypoint in the registry.
 func (s *Server) EntrypointID() string {
-	if s.entrypointID != "" {
-		return s.entrypointID
-	}
-
-	s.entrypointID = fmt.Sprintf("%s-%s", s.registry.ServiceName(), uuid.New().String())
-
-	return s.entrypointID
+	return s.registry.ServiceName() + types.DefaultSeparator + s.config.Name
 }
 
 // String returns the entrypoint type; http.
