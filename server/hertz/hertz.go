@@ -36,9 +36,6 @@ type Server struct {
 	address string
 	hServer *server.Hertz
 
-	// entrypointID is the entrypointID (uuid) of this entrypoint in the registry.
-	entrypointID string
-
 	started bool
 }
 
@@ -225,15 +222,14 @@ func (s *Server) registryDeregister() error {
 // multiple entrypoints for multiple addresses and ports. One entrypoint
 // can serve a HTTP1 and HTTP2/H2C server.
 func Provide(
-	sections []string,
-	configs types.ConfigData,
+	configs map[string]any,
 	logger log.Logger,
 	reg registry.Type,
 	opts ...orbserver.Option,
 ) (orbserver.Entrypoint, error) {
 	cfg := NewConfig(opts...)
 
-	if err := config.Parse(sections, configs, cfg); err != nil {
+	if err := config.Parse(nil, "", configs, cfg); err != nil {
 		return nil, err
 	}
 
@@ -244,7 +240,7 @@ func Provide(
 			return nil, fmt.Errorf("%w: '%s', did you register it?", orbserver.ErrUnknownMiddleware, cfgMw.Plugin)
 		}
 
-		mw, err := pFunc(append(sections, "middlewares", strconv.Itoa(idx)), configs, logger)
+		mw, err := pFunc([]string{"middlewares"}, strconv.Itoa(idx), configs, logger)
 		if err != nil {
 			return nil, err
 		}

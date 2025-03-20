@@ -9,6 +9,7 @@ import (
 	"sync"
 	"time"
 
+	"github.com/go-orb/go-orb/config"
 	"github.com/go-orb/go-orb/log"
 	"github.com/go-orb/go-orb/registry"
 	"github.com/go-orb/go-orb/types"
@@ -36,20 +37,20 @@ type RegistryNATS struct {
 
 // ProvideRegistryNATS creates a new NATS registry.
 func ProvideRegistryNATS(
-	name types.ServiceName,
-	version types.ServiceVersion,
-	datas types.ConfigData,
+	name string,
+	version string,
+	datas map[string]any,
 	_ *types.Components,
 	logger log.Logger,
 	opts ...registry.Option,
 ) (registry.Type, error) {
-	cfg, err := NewConfig(name, datas, opts...)
-	if err != nil {
-		return registry.Type{}, fmt.Errorf("create nats registry config: %w", err)
+	cfg := NewConfig(opts...)
+	if err := config.Parse(nil, registry.DefaultConfigSection, datas, &cfg); err != nil {
+		return registry.Type{}, fmt.Errorf("parse config: %w", err)
 	}
 
 	// Return the new registry.
-	reg := New(string(name), string(version), cfg, logger)
+	reg := New(name, version, cfg, logger)
 
 	return registry.Type{Registry: reg}, nil
 }

@@ -22,6 +22,7 @@ import (
 	"github.com/go-orb/plugins-experimental/registry/mdns/server"
 	"github.com/go-orb/plugins-experimental/registry/mdns/zone"
 
+	"github.com/go-orb/go-orb/config"
 	"github.com/go-orb/go-orb/log"
 	"github.com/go-orb/go-orb/registry"
 	"github.com/go-orb/go-orb/types"
@@ -74,22 +75,22 @@ type mdnsWatcher struct {
 	registry *RegistryMDNS
 }
 
-// ProvideRegistryMDNS creates a new MDNS registry.
-func ProvideRegistryMDNS(
-	name types.ServiceName,
-	version types.ServiceVersion,
-	datas types.ConfigData,
+// Provide creates a new MDNS registry.
+func Provide(
+	name string,
+	version string,
+	datas map[string]any,
 	_ *types.Components,
 	logger log.Logger,
 	opts ...registry.Option,
 ) (registry.Type, error) {
-	cfg, err := NewConfig(name, datas, opts...)
-	if err != nil {
-		return registry.Type{}, fmt.Errorf("create mdns registry config: %w", err)
+	cfg := NewConfig(opts...)
+	if err := config.Parse(nil, registry.DefaultConfigSection, datas, &cfg); err != nil {
+		return registry.Type{}, fmt.Errorf("parse config: %w", err)
 	}
 
 	// Return the new registry.
-	reg := New(string(name), string(version), cfg, logger)
+	reg := New(name, version, cfg, logger)
 
 	return registry.Type{Registry: reg}, nil
 }

@@ -1,11 +1,7 @@
 package mdns
 
 import (
-	"fmt"
-
-	"github.com/go-orb/go-orb/config"
 	"github.com/go-orb/go-orb/registry"
-	"github.com/go-orb/go-orb/types"
 )
 
 // metaTransportKey is the key to use to store the scheme in metadata.
@@ -22,7 +18,7 @@ var (
 )
 
 func init() {
-	registry.Plugins.Add(Name, ProvideRegistryMDNS)
+	registry.Plugins.Add(Name, Provide)
 }
 
 // Config provides configuration for the mDNS registry.
@@ -34,10 +30,8 @@ type Config struct {
 
 // NewConfig creates a new config object.
 func NewConfig(
-	serviceName types.ServiceName,
-	datas types.ConfigData,
 	opts ...registry.Option,
-) (Config, error) {
+) Config {
 	cfg := Config{
 		Config: registry.NewConfig(),
 	}
@@ -49,12 +43,7 @@ func NewConfig(
 		o(&cfg)
 	}
 
-	sections := types.SplitServiceName(serviceName)
-	if err := config.Parse(append(sections, registry.ComponentType), datas, &cfg); err != nil {
-		return cfg, fmt.Errorf("parse config: %w", err)
-	}
-
-	return cfg, nil
+	return cfg
 }
 
 // WithDomain sets the mDNS domain.

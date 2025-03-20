@@ -22,7 +22,6 @@ import (
 
 	log "github.com/go-orb/go-orb/log"
 	"github.com/go-orb/go-orb/registry"
-	"github.com/go-orb/go-orb/types"
 )
 
 func createServer() (*tests.TestSuite, func() error, error) {
@@ -51,10 +50,7 @@ func createServer() (*tests.TestSuite, func() error, error) {
 	// Sometimes the nats server has isssues with starting, so we attempt 5
 	// times.
 	for i := 0; i < 5; i++ {
-		cfg, err := NewConfig(types.ServiceName("test.service"), nil, WithAddress(addr))
-		if err != nil {
-			log.Error("failed to create config", err)
-		}
+		cfg := NewConfig(WithAddress(addr))
 
 		regOne = New("", "", cfg, logger)
 		err = regOne.Start(context.Background())

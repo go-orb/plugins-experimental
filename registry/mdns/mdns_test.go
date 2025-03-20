@@ -9,7 +9,6 @@ import (
 
 	"github.com/go-orb/go-orb/log"
 	"github.com/go-orb/go-orb/registry"
-	"github.com/go-orb/go-orb/types"
 
 	_ "github.com/go-orb/plugins/codecs/json"
 	_ "github.com/go-orb/plugins/log/slog"
@@ -109,12 +108,8 @@ func createServer() (*tests.TestSuite, func() error, error) {
 		return nil, func() error { return nil }, err
 	}
 
-	cfg, err := NewConfig("test.service", nil, WithDomain("mdns.test.local"))
+	cfg := NewConfig(WithDomain("mdns.test.local"))
 	r := New("", "", cfg, logger)
-	if err != nil {
-		logger.Error("failed to create registry config", "err", err)
-		return nil, func() error { return nil }, err
-	}
 
 	cleanup := func() error {
 		return r.Stop(context.Background())
@@ -160,9 +155,7 @@ func TestWatcher(t *testing.T) {
 	l, err := log.New()
 	require.NoError(t, err, "failed to create logger")
 
-	cfg, err := NewConfig(types.ServiceName("test.service"), nil)
-	require.NoError(t, err, "failed to create registry config")
-
+	cfg := NewConfig(WithDomain("mdns.test.local"))
 	r := New("", "", cfg, l)
 	require.NoError(t, r.Start(context.Background()), "failed to start service")
 

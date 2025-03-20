@@ -4,9 +4,7 @@ import (
 	"crypto/tls"
 	"fmt"
 
-	"github.com/go-orb/go-orb/config"
 	"github.com/go-orb/go-orb/registry"
-	"github.com/go-orb/go-orb/types"
 )
 
 // Name provides the name of this registry.
@@ -41,22 +39,15 @@ type Config struct {
 
 // NewConfig creates a new config object.
 func NewConfig(
-	serviceName types.ServiceName,
-	datas types.ConfigData,
 	opts ...registry.Option,
-) (Config, error) {
+) Config {
 	cfg := Config{
 		Config: registry.NewConfig(),
 	}
 
 	cfg.ApplyOptions(opts...)
 
-	sections := types.SplitServiceName(serviceName)
-	if err := config.Parse(append(sections, registry.ComponentType), datas, &cfg); err != nil {
-		return cfg, fmt.Errorf("parse config: %w", err)
-	}
-
-	return cfg, nil
+	return cfg
 }
 
 // ApplyOptions applies a set of options to the config.
