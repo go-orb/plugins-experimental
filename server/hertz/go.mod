@@ -4,12 +4,12 @@ go 1.23.6
 
 require (
 	github.com/cloudwego/hertz v0.9.6
-	github.com/go-orb/go-orb v0.2.2-0.20250311013353-9996c5ae2659
-	github.com/google/uuid v1.6.0
+	github.com/go-orb/go-orb v0.2.2-0.20250320211814-c5e283ade629
 	github.com/hertz-contrib/http2 v0.1.8
 )
 
 require (
+	dario.cat/mergo v1.0.1 // indirect
 	github.com/bytedance/gopkg v0.1.1 // indirect
 	github.com/bytedance/sonic v1.13.1 // indirect
 	github.com/bytedance/sonic/loader v0.2.4 // indirect
