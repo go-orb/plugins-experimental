@@ -229,7 +229,7 @@ func Provide(
 ) (orbserver.Entrypoint, error) {
 	cfg := NewConfig(opts...)
 
-	if err := config.Parse(nil, "", configs, cfg); err != nil {
+	if err := config.Parse(nil, "", configs, cfg); err != nil && !errors.Is(err, config.ErrNoSuchKey) {
 		return nil, err
 	}
 

@@ -4,6 +4,7 @@ package nats
 import (
 	"context"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"strings"
 	"sync"
@@ -45,7 +46,7 @@ func ProvideRegistryNATS(
 	opts ...registry.Option,
 ) (registry.Type, error) {
 	cfg := NewConfig(opts...)
-	if err := config.Parse(nil, registry.DefaultConfigSection, datas, &cfg); err != nil {
+	if err := config.Parse(nil, registry.DefaultConfigSection, datas, &cfg); err != nil && !errors.Is(err, config.ErrNoSuchKey) {
 		return registry.Type{}, fmt.Errorf("parse config: %w", err)
 	}
 
