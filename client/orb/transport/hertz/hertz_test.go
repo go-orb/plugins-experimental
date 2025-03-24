@@ -18,11 +18,11 @@ import (
 	echoproto "github.com/go-orb/plugins/client/tests/proto/echo"
 
 	// Blank imports here are fine.
-	_ "github.com/go-orb/plugins-experimental/registry/mdns"
 	_ "github.com/go-orb/plugins/codecs/json"
 	_ "github.com/go-orb/plugins/codecs/proto"
 	_ "github.com/go-orb/plugins/codecs/yaml"
 	_ "github.com/go-orb/plugins/log/slog"
+	_ "github.com/go-orb/plugins/registry/mdns"
 )
 
 func setupServer(sn string) (*tests.SetupData, error) {
@@ -39,7 +39,7 @@ func setupServer(sn string) (*tests.SetupData, error) {
 		return nil, err
 	}
 
-	reg, err := registry.New(sn, sv, nil, &types.Components{}, logger)
+	reg, err := registry.New(nil, &types.Components{}, logger)
 	if err != nil {
 		cancel()
 
@@ -50,6 +50,7 @@ func setupServer(sn string) (*tests.SetupData, error) {
 	hRegister := echoproto.RegisterStreamsHandler(hInstance)
 
 	ep1, err := hertz.New(
+		sn, sv,
 		hertz.NewConfig(
 			server.WithEntrypointName("http"),
 			hertz.WithHandlers(hRegister),
@@ -65,6 +66,7 @@ func setupServer(sn string) (*tests.SetupData, error) {
 	}
 
 	ep2, err := hertz.New(
+		sn, sv,
 		hertz.NewConfig(
 			server.WithEntrypointName("h2c"),
 			hertz.WithHandlers(hRegister),
