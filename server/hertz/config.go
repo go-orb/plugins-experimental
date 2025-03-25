@@ -133,12 +133,6 @@ type Config struct {
 	// StopTimeout is the timeout for ServerHertz.Stop().
 	StopTimeout time.Duration `json:"stopTimeout" yaml:"stopTimeout"`
 
-	// Middlewares is a list of middleware to use.
-	Middlewares []server.MiddlewareConfig `json:"middlewares" yaml:"middlewares"`
-
-	// Handlers is a list of pre-registered handlers.
-	Handlers []string `json:"handlers" yaml:"handlers"`
-
 	// Logger allows you to dynamically change the log level and plugin for a
 	// specific entrypoint.
 	Logger log.Config `json:"logger" yaml:"logger"`
@@ -148,7 +142,6 @@ type Config struct {
 func NewConfig(options ...server.Option) *Config {
 	cfg := &Config{
 		EntrypointConfig: server.EntrypointConfig{
-			Name:    Plugin,
 			Plugin:  Plugin,
 			Enabled: true,
 		},
@@ -169,20 +162,6 @@ func NewConfig(options ...server.Option) *Config {
 	}
 
 	return cfg
-}
-
-// WithName sets the entrypoint name. The default name is in the format of
-// 'http-<uuid>'.
-//
-// Setting a custom name allows you to dynamically reference the entrypoint in
-// the file config, and makes it easier to attribute the logs.
-func WithName(name string) server.Option {
-	return func(c server.EntrypointConfigType) {
-		cfg, ok := c.(*Config)
-		if ok {
-			cfg.Name = name
-		}
-	}
 }
 
 // WithAddress specifies the address to listen on.
@@ -286,16 +265,6 @@ func WithIdleTimeout(timeout time.Duration) server.Option {
 		cfg, ok := c.(*Config)
 		if ok {
 			cfg.IdleTimeout = timeout
-		}
-	}
-}
-
-// WithMiddleware adds a pre-registered middleware.
-func WithMiddleware(m string) server.Option {
-	return func(c server.EntrypointConfigType) {
-		cfg, ok := c.(*Config)
-		if ok {
-			cfg.Middlewares = append(cfg.Middlewares, server.MiddlewareConfig{Plugin: m})
 		}
 	}
 }

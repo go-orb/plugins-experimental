@@ -51,8 +51,8 @@ func setupServer(sn string) (*tests.SetupData, error) {
 
 	ep1, err := hertz.New(
 		sn, sv,
+		"hertzhttp",
 		hertz.NewConfig(
-			server.WithEntrypointName("http"),
 			hertz.WithHandlers(hRegister),
 			hertz.WithInsecure(),
 		),
@@ -67,8 +67,8 @@ func setupServer(sn string) (*tests.SetupData, error) {
 
 	ep2, err := hertz.New(
 		sn, sv,
+		"hertzh2c",
 		hertz.NewConfig(
-			server.WithEntrypointName("h2c"),
 			hertz.WithHandlers(hRegister),
 			hertz.WithInsecure(),
 			hertz.WithAllowH2C(),
