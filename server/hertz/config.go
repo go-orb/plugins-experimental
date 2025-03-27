@@ -11,6 +11,9 @@ import (
 )
 
 const (
+	// DefaultNetwork to use for new Hertz servers.
+	DefaultNetwork = "tcp"
+
 	// DefaultAddress to use for new Hertz servers.
 	DefaultAddress = ":0"
 
@@ -64,6 +67,15 @@ var (
 // Config provides options to the entrypoint.
 type Config struct {
 	server.EntrypointConfig `yaml:",inline"`
+
+	// Network to use for the entrypoint.
+	//
+	// Supported values:
+	//
+	// - "tcp"
+	//
+	// Defaults to "tcp".
+	Network string `json:"network" yaml:"network"`
 
 	// Address to listen on.
 	// TODO(davincible): implement this, and the address method.
@@ -145,6 +157,7 @@ func NewConfig(options ...server.Option) *Config {
 			Plugin:  Plugin,
 			Enabled: true,
 		},
+		Network:              DefaultNetwork,
 		Address:              DefaultAddress,
 		Insecure:             DefaultInsecure,
 		MaxConcurrentStreams: DefaultMaxConcurrentStreams,

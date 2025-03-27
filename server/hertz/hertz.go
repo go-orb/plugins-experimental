@@ -127,6 +127,11 @@ func (s *Server) Register(register orbserver.RegistrationFunc) {
 	register(s)
 }
 
+// Network returns the network the entrypoint is listening on.
+func (s *Server) Network() string {
+	return s.config.Network
+}
+
 // Address returns the address the entrypoint is listening on.
 func (s *Server) Address() string {
 	return s.address
@@ -173,6 +178,7 @@ func (s *Server) registryService() registry.ServiceNode {
 		Name:     s.serviceName,
 		Version:  s.serviceVersion,
 		Node:     s.Name(),
+		Network:  s.Network(),
 		Address:  s.Address(),
 		Scheme:   s.Transport(),
 		Metadata: make(map[string]string),
